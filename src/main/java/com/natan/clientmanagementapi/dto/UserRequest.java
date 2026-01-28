@@ -1,9 +1,16 @@
 package com.natan.clientmanagementapi.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class UserRequest {
     
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String role;
 
     public String getUsername() {

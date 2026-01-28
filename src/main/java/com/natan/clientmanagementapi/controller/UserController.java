@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.natan.clientmanagementapi.dto.UserRequest;
 import com.natan.clientmanagementapi.dto.UserResponse;
 import com.natan.clientmanagementapi.service.UserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {
 
         UserResponse savedUser = userService.createUser(request);
         return ResponseEntity
