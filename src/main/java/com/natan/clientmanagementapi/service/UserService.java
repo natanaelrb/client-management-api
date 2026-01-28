@@ -1,16 +1,16 @@
 package com.natan.clientmanagementapi.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.natan.clientmanagementapi.dto.UserRequest;
 import com.natan.clientmanagementapi.dto.UserResponse;
 import com.natan.clientmanagementapi.entity.User;
 import com.natan.clientmanagementapi.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -21,6 +21,7 @@ public class UserService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        
     }
 
     public UserResponse createUser(UserRequest request) {
