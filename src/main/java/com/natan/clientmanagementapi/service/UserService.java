@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.natan.clientmanagementapi.dto.UserRequest;
 import com.natan.clientmanagementapi.dto.UserResponse;
 import com.natan.clientmanagementapi.entity.User;
+import com.natan.clientmanagementapi.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.repository.UserRepository;
 
 @Service
@@ -25,6 +26,10 @@ public class UserService {
     }
 
     public UserResponse createUser(UserRequest request) {
+
+        if (userRepository.existsByUsername(request.getUsername())) {
+        throw new DuplicateResourceException("Username já existe");
+    }
 
         User user = new User();
         user.setUsername(request.getUsername());
