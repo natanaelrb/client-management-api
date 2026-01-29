@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.exception;
+package com.natan.clientmanagementapi.api.exception;
 
 public class DuplicateResourceException extends RuntimeException {
     public DuplicateResourceException(String message) {

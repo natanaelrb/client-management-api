@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.exception;
+package com.natan.clientmanagementapi.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

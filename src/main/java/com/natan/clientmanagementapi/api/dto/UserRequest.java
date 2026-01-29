@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.dto;
+package com.natan.clientmanagementapi.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

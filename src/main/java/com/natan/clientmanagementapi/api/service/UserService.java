@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.service;
+package com.natan.clientmanagementapi.api.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.natan.clientmanagementapi.dto.UserRequest;
-import com.natan.clientmanagementapi.dto.UserResponse;
-import com.natan.clientmanagementapi.entity.User;
-import com.natan.clientmanagementapi.exception.DuplicateResourceException;
-import com.natan.clientmanagementapi.repository.UserRepository;
+import com.natan.clientmanagementapi.api.dto.UserRequest;
+import com.natan.clientmanagementapi.api.dto.UserResponse;
+import com.natan.clientmanagementapi.api.entity.User;
+import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
+import com.natan.clientmanagementapi.api.repository.UserRepository;
 
 @Service
 public class UserService {

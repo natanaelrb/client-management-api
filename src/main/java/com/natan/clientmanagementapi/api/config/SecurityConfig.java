@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.config;
+package com.natan.clientmanagementapi.api.config;
 
 
 import org.springframework.context.annotation.Bean;

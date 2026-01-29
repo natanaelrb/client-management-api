@@ -1,4 +1,4 @@
-package com.natan.clientmanagementapi.entity;
+package com.natan.clientmanagementapi.api.entity;
 
 import java.time.LocalDateTime;
 
