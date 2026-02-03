@@ -10,8 +10,6 @@ import com.natan.clientmanagementapi.api.entity.Client;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.repository.ClientRepository;
 
-
-
 @Service
 public class ClientService {
 
@@ -23,11 +21,11 @@ public class ClientService {
 
     public ClientResponse createClient(ClientRequest request) {
 
-        if (clientRepository.findByEmail(request.getEmail()) != null) {
+        if (clientRepository.existsByEmail(request.getEmail())) {
             throw new DuplicateResourceException("Email já cadastrado");
         }
 
-        if (clientRepository.findByPhoneNumber(request.getPhoneNumber()) != null) {
+        if (clientRepository.existsByPhoneNumber(request.getPhoneNumber())) {
             throw new DuplicateResourceException("Telefone já cadastrado");
         }
 

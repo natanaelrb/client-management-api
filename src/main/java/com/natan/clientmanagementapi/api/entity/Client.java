@@ -54,7 +54,7 @@ public class Client implements java.io.Serializable {
         this.email = email;
     }
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     public String getPhoneNumber() {
         return phoneNumber;
     }
