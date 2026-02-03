@@ -9,6 +9,7 @@ import com.natan.clientmanagementapi.api.dto.ClientRequest;
 import com.natan.clientmanagementapi.api.dto.ClientResponse;
 import com.natan.clientmanagementapi.api.entity.Client;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
+import com.natan.clientmanagementapi.api.exception.ResourceNotFoundException;
 import com.natan.clientmanagementapi.api.repository.ClientRepository;
 
 @Service
@@ -25,6 +26,12 @@ public class ClientService {
                 .stream()
                 .map(ClientResponse::fromEntity)
                 .toList();
+    }
+
+    public ClientResponse findById(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+        return ClientResponse.fromEntity(client);
     }
 
     public ClientResponse createClient(ClientRequest request) {
