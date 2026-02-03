@@ -1,7 +1,10 @@
 package com.natan.clientmanagementapi.api.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
@@ -31,4 +34,9 @@ public class ClientController {
         ClientResponse response = clientService.createClient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping
+    public List<ClientResponse> getAllClients() {
+    return clientService.findAll();
+}
 }

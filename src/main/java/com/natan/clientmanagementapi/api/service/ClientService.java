@@ -1,6 +1,7 @@
 package com.natan.clientmanagementapi.api.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,13 @@ public class ClientService {
 
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
+    }
+
+    public List<ClientResponse> findAll() {
+        return clientRepository.findAll()
+                .stream()
+                .map(ClientResponse::fromEntity)
+                .toList();
     }
 
     public ClientResponse createClient(ClientRequest request) {
