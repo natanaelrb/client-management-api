@@ -1,6 +1,7 @@
 package com.natan.clientmanagementapi.api.repository;
 
 import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.natan.clientmanagementapi.api.entity.User;

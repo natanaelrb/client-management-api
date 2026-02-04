@@ -60,4 +60,29 @@ public class ClientService {
             savedClient.getCreatedAt()
         );
     }
+
+    public ClientResponse updateClient(Long id, ClientRequest request) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+
+        // valida email duplicado (exceto o próprio cliente)
+        if (!client.getEmail().equals(request.getEmail()) &&
+                clientRepository.existsByEmail(request.getEmail())) {
+            throw new DuplicateResourceException("Email já cadastrado");
+        }
+
+        // valida telefone duplicado (exceto o próprio cliente)
+        if (!client.getPhoneNumber().equals(request.getPhoneNumber()) &&
+                clientRepository.existsByPhoneNumber(request.getPhoneNumber())) {
+            throw new DuplicateResourceException("Telefone já cadastrado");
+        }
+
+        client.setName(request.getName());
+        client.setEmail(request.getEmail());
+        client.setPhoneNumber(request.getPhoneNumber());
+
+        Client updatedClient = clientRepository.save(client);
+
+        return ClientResponse.fromEntity(updatedClient);
+    }
 }

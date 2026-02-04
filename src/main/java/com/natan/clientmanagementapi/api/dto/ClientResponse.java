@@ -1,6 +1,7 @@
 package com.natan.clientmanagementapi.api.dto;
 
 import java.time.LocalDateTime;
+
 import com.natan.clientmanagementapi.api.entity.Client;
 
 public class ClientResponse {
