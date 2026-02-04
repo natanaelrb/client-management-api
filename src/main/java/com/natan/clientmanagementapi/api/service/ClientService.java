@@ -85,4 +85,10 @@ public class ClientService {
 
         return ClientResponse.fromEntity(updatedClient);
     }
+
+    public void deleteById(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+        clientRepository.delete(client);
+    }
 }

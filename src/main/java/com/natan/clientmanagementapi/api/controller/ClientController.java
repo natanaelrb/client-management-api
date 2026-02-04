@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.natan.clientmanagementapi.api.dto.ClientRequest;
 import com.natan.clientmanagementapi.api.dto.ClientResponse;
@@ -52,5 +53,11 @@ public class ClientController {
         @PathVariable Long id,
         @RequestBody ClientRequest request) {
     return clientService.updateClient(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        clientService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
