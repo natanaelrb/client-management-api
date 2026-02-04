@@ -2,6 +2,7 @@ package com.natan.clientmanagementapi.api.controller;
 
 import java.util.List;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,12 @@ import com.natan.clientmanagementapi.api.dto.ClientResponse;
 import com.natan.clientmanagementapi.api.service.ClientService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 
 @RestController
 @RequestMapping("/api/clients")
+@Validated
 public class ClientController {
 
     private final ClientService clientService;
@@ -44,19 +47,19 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ClientResponse getById(@PathVariable Long id) {
+    public ClientResponse getById(@PathVariable @Positive(message = "Id deve ser positivo") Long id) {
         return clientService.findById(id);
     }
 
     @PutMapping("/{id}")
     public ClientResponse update(
-        @PathVariable Long id,
-        @RequestBody ClientRequest request) {
+        @PathVariable @Positive(message = "Id deve ser positivo") Long id,
+        @Valid @RequestBody ClientRequest request) {
     return clientService.updateClient(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable @Positive(message = "Id deve ser positivo") Long id) {
         clientService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
