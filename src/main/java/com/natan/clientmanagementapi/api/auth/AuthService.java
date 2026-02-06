@@ -15,7 +15,7 @@ public class AuthService {
 
     public AuthResponse login(AuthRequest request) {
 
-        // TEMPORÁRIO (depois troca por banco)
+        // Temporário (depois trocar por banco)
         if (!request.getEmail().equals("admin@email.com") ||
             !request.getPassword().equals("123456")) {
             throw new RuntimeException("Credenciais inválidas");
