@@ -4,10 +4,14 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import com.natan.clientmanagementapi.api.model.Role;
+
 
 @Entity
 @Table(name = "users")
@@ -23,8 +27,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -57,11 +61,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
     
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

@@ -15,13 +15,32 @@ public class AuthService {
 
     public AuthResponse login(AuthRequest request) {
 
+        // ADMIN
         // Temporário (depois trocar por banco)
-        if (!request.getEmail().equals("admin@email.com") ||
-            !request.getPassword().equals("123456")) {
-            throw new RuntimeException("Credenciais inválidas");
+        if (request.getEmail().equals("admin@email.com") &&
+            request.getPassword().equals("123456")) {
+
+            String token = jwtService.generateToken(
+                    request.getEmail(),
+                    "ROLE_ADMIN"
+            );
+
+            return new AuthResponse(token);
         }
 
-        String token = jwtService.generateToken(request.getEmail());
-        return new AuthResponse(token);
+        // USER
+        if (request.getEmail().equals("user@email.com") &&
+            request.getPassword().equals("123456")) {
+
+            String token = jwtService.generateToken(
+                    request.getEmail(),
+                    "ROLE_USER"
+            );
+
+            return new AuthResponse(token);
+        }
+
+        throw new RuntimeException("Credenciais inválidas");
+
     }
 }

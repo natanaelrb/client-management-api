@@ -18,8 +18,9 @@ public class JwtService {
         this.properties = properties;
     }
 
-    public String generateToken(String subject) {
+    public String generateToken(String subject, String role) {
         return Jwts.builder()
+                .claim("role", role)
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration()))
@@ -29,6 +30,7 @@ public class JwtService {
 
     public String generateToken(UserDetails user) {
         return Jwts.builder()
+                .claim("role", user.getAuthorities().iterator().next().getAuthority())
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration()))
@@ -44,5 +46,13 @@ public class JwtService {
             .getBody()
             .getSubject();
     }
-    
+
+    public String extractRole(String token) {
+    return Jwts.parserBuilder()
+            .setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(properties.getSecret())))
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("role", String.class);
+    } 
 }

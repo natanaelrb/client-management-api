@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import com.natan.clientmanagementapi.api.dto.UserRequest;
 import com.natan.clientmanagementapi.api.dto.UserResponse;
 import com.natan.clientmanagementapi.api.entity.User;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.repository.UserRepository;
+import com.natan.clientmanagementapi.api.model.Role;
 
 @Service
 public class UserService {
@@ -25,6 +27,10 @@ public class UserService {
         
     }
 
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
     public UserResponse createUser(UserRequest request) {
 
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -34,7 +40,7 @@ public class UserService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
+        user.setRole(Role.valueOf(request.getRole()));
         user.setCreatedAt(LocalDateTime.now());
 
         User savedUser = userRepository.save(user);
@@ -58,4 +64,5 @@ public List<UserResponse> getAllUsers() {
         ))
         .collect(Collectors.toList());
     }
+
 }
