@@ -35,14 +35,12 @@ public class SecurityConfig {
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            // .exceptionHandling(exception -> exception
-            //         .authenticationEntryPoint((request, response, authException) ->
-            //                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-            // )
+
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/**").permitAll()
                     .anyRequest().authenticated()
             )
+            
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
