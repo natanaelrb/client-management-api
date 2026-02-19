@@ -2,6 +2,8 @@ package com.natan.clientmanagementapi.api.dto;
 
 import java.time.LocalDateTime;
 import com.natan.clientmanagementapi.api.model.Role;
+import com.natan.clientmanagementapi.api.entity.User;
+
 public class UserResponse {
 
     private Long id;
@@ -14,6 +16,13 @@ public class UserResponse {
         this.username = username;
         this.role = role;
         this.createdAt = createdAt;
+    }
+
+    public UserResponse(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.role = user.getRole();
+        this.createdAt = user.getCreatedAt();
     }
 
     public Long getId() {

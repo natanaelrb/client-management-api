@@ -14,6 +14,8 @@ import com.natan.clientmanagementapi.api.entity.User;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.repository.UserRepository;
 import com.natan.clientmanagementapi.api.model.Role;
+import com.natan.clientmanagementapi.api.dto.UserUpdateRequest;
+
 
 @Service
 public class UserService {
@@ -63,6 +65,36 @@ public List<UserResponse> getAllUsers() {
             user.getCreatedAt()
         ))
         .collect(Collectors.toList());
+    }
+
+public UserResponse update(Long id, UserUpdateRequest request) {
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    
+    // Verifica se o novo username já existe e pertence a outro usuário
+    if (!user.getUsername().equals(request.getUsername()) && 
+        userRepository.existsByUsername(request.getUsername())) {
+        throw new DuplicateResourceException("Username já existe");
+    }
+
+    user.setUsername(request.getUsername());
+
+    // Só atualiza a senha se vier preenchida
+    if (request.getPassword() != null && !request.getPassword().isBlank()) {
+
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+    }
+
+    User updatedUser = userRepository.save(user);
+
+        return new UserResponse(
+                updatedUser.getId(),
+                updatedUser.getUsername(),
+                updatedUser.getRole(),
+                updatedUser.getCreatedAt()
+        );
+
     }
 
 }

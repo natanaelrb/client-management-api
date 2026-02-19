@@ -1,29 +1,29 @@
-package com.natan.clientmanagementapi.api.auth;
+package com.natan.clientmanagementapi.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class AuthRequest {
-    
+public class UserUpdateRequest {
+   
     @NotBlank
     private String username;
 
     @NotBlank
     private String password;
+    
+    public String getUsername() {
+        return username;
+    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
     public String getPassword() {
         return password;
     }
-
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
+
