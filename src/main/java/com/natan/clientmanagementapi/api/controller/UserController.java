@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.natan.clientmanagementapi.api.dto.UserRequest;
-import com.natan.clientmanagementapi.api.dto.UserResponse;
 import com.natan.clientmanagementapi.api.service.UserService;
-import com.natan.clientmanagementapi.api.dto.UserUpdateRequest;
-
+import com.natan.clientmanagementapi.api.dto.user.UserRequest;
+import com.natan.clientmanagementapi.api.dto.user.UserResponse;
+import com.natan.clientmanagementapi.api.dto.user.UserUpdateRequest;
 
 import jakarta.validation.Valid;
 
@@ -60,6 +59,6 @@ public class UserController {
         @PathVariable Long id, 
         @Valid @RequestBody UserUpdateRequest request) {
             return ResponseEntity.ok(userService.update(id, request));
-        }
+    }
         
 }

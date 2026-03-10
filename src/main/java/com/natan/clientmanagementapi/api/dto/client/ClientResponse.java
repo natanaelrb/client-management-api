@@ -1,8 +1,8 @@
-package com.natan.clientmanagementapi.api.dto;
+package com.natan.clientmanagementapi.api.dto.client;
 
 import java.time.LocalDateTime;
 
-import com.natan.clientmanagementapi.api.entity.Client;
+import com.natan.clientmanagementapi.api.domain.model.Client;
 
 public class ClientResponse {
 
@@ -28,6 +28,7 @@ public class ClientResponse {
             client.getPhoneNumber(),
             client.getCreatedAt()
         );
+        
     }
 
     public Long getId() {

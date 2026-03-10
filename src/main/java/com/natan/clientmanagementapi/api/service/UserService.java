@@ -4,18 +4,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-import com.natan.clientmanagementapi.api.dto.UserRequest;
-import com.natan.clientmanagementapi.api.dto.UserResponse;
-import com.natan.clientmanagementapi.api.entity.User;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.repository.UserRepository;
-import com.natan.clientmanagementapi.api.model.Role;
-import com.natan.clientmanagementapi.api.dto.UserUpdateRequest;
-
+import com.natan.clientmanagementapi.api.domain.enums.Role;
+import com.natan.clientmanagementapi.api.domain.model.User;
+import com.natan.clientmanagementapi.api.dto.user.UserRequest;
+import com.natan.clientmanagementapi.api.dto.user.UserResponse;
+import com.natan.clientmanagementapi.api.dto.user.UserUpdateRequest;
 
 @Service
 public class UserService {
@@ -66,6 +65,16 @@ public List<UserResponse> getAllUsers() {
         ))
         .collect(Collectors.toList());
     }
+
+    public User getAuthenticatedUser() {
+        String username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+    return userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+}
 
 public UserResponse update(Long id, UserUpdateRequest request) {
     User user = userRepository.findById(id)

@@ -16,7 +16,7 @@ public class JwtService {
 
     public JwtService(JwtProperties properties) {
         this.properties = properties;
-    }
+        }
 
     public String generateToken(String subject, String role) {
         return Jwts.builder()
@@ -26,7 +26,7 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration()))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(properties.getSecret())))
                 .compact();
-    }
+        }
 
     public String generateToken(UserDetails user) {
         return Jwts.builder()
@@ -36,7 +36,7 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration()))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(properties.getSecret())))
                 .compact();
-    }
+        }
 
     public String extractUsername(String token) {
     return Jwts.parserBuilder()
@@ -45,7 +45,7 @@ public class JwtService {
             .parseClaimsJws(token)
             .getBody()
             .getSubject();
-    }
+        }
 
     public String extractRole(String token) {
     return Jwts.parserBuilder()
@@ -54,7 +54,7 @@ public class JwtService {
             .parseClaimsJws(token)
             .getBody()
             .get("role", String.class);
-    }
+        }
 
     public String generateToken(Long userId, String email, String role) {
     return Jwts.builder()
@@ -65,7 +65,7 @@ public class JwtService {
             .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration()))
             .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(properties.getSecret())))
             .compact();
-    }
+        }
 
     public Long extractUserId(String token) {
     return Long.valueOf(
@@ -75,15 +75,15 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody()
                     .get("userId").toString()
-        );
+                );
     
-    }
+        }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     
-    }
+        }
 
         private boolean isTokenExpired(String token) {
                 Date expiration = Jwts.parserBuilder()
@@ -95,6 +95,6 @@ public class JwtService {
 
     return expiration.before(new Date());
     
-    }
+        }
 
 }

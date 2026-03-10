@@ -1,5 +1,6 @@
-package com.natan.clientmanagementapi.api.entity;
+package com.natan.clientmanagementapi.api.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -7,27 +8,41 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
-public class Client implements java.io.Serializable {
+public class Client implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
+    
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Client() {
     }
+    
+    // Getters and Setters
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -36,7 +51,6 @@ public class Client implements java.io.Serializable {
         this.id = id;
     }
 
-    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -45,7 +59,6 @@ public class Client implements java.io.Serializable {
         this.name = name;
     }
 
-    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -54,7 +67,6 @@ public class Client implements java.io.Serializable {
         this.email = email;
     }
 
-    @Column(name = "phone_number", nullable = false, unique = true)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -63,12 +75,19 @@ public class Client implements java.io.Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    @Column(name = "created_at", nullable = false)
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

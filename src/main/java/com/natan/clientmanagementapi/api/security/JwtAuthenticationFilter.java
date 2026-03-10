@@ -8,9 +8,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.natan.clientmanagementapi.api.domain.model.User;
 import com.natan.clientmanagementapi.api.repository.UserRepository;
-import com.natan.clientmanagementapi.api.entity.User;
-
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,40 +46,37 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
-        String token = authHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            String token = authHeader.substring(7);
+            String username = jwtService.extractUsername(token);
+            
+        if (username != null &&
+            SecurityContextHolder.getContext().getAuthentication() == null) {
 
             User user = userRepository.findByUsername(username)
                     .orElseThrow();
 
-                    
-                    
-            CustomUserPrincipal principal =
-                    new CustomUserPrincipal(user);
+            CustomUserPrincipal principal = new CustomUserPrincipal(user);
 
             if (jwtService.isTokenValid(token, principal)) {
                     
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                        principal, 
-                        null, 
-                        principal.getAuthorities()
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                            principal, 
+                            null, 
+                            principal.getAuthorities()
                     
-                    );
+                        );
 
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource()
+                            .buildDetails(request)
+                );
 
-            authentication.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authentication);
+            }
         }
 
         filterChain.doFilter(request, response);
-    
-        }
-    }
+    }  
 }

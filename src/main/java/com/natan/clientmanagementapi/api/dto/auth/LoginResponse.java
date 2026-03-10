@@ -1,10 +1,10 @@
-package com.natan.clientmanagementapi.api.auth;
+package com.natan.clientmanagementapi.api.dto.auth;
 
-public class AuthResponse {
+public class LoginResponse {
 
     private String token;
 
-    public AuthResponse(String token) {
+    public LoginResponse(String token) {
         this.token = token;
     }
 

@@ -1,8 +1,8 @@
-package com.natan.clientmanagementapi.api.auth;
+package com.natan.clientmanagementapi.api.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class AuthRequest {
+public class LoginRequest {
     
     @NotBlank
     private String username;

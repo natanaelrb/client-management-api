@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.natan.clientmanagementapi.api.dto.ClientRequest;
-import com.natan.clientmanagementapi.api.dto.ClientResponse;
-import com.natan.clientmanagementapi.api.entity.Client;
+import com.natan.clientmanagementapi.api.domain.model.Client;
+import com.natan.clientmanagementapi.api.domain.model.User;
+import com.natan.clientmanagementapi.api.dto.client.ClientRequest;
+import com.natan.clientmanagementapi.api.dto.client.ClientResponse;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.exception.ResourceNotFoundException;
 import com.natan.clientmanagementapi.api.repository.ClientRepository;
@@ -16,9 +17,11 @@ import com.natan.clientmanagementapi.api.repository.ClientRepository;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final UserService userService;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, UserService userService) {
         this.clientRepository = clientRepository;
+        this.userService = userService;
     }
 
     public List<ClientResponse> findAll() {
@@ -44,21 +47,18 @@ public class ClientService {
             throw new DuplicateResourceException("Telefone já cadastrado");
         }
 
+        User user = userService.getAuthenticatedUser();
+
         Client client = new Client();
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setPhoneNumber(request.getPhoneNumber());
         client.setCreatedAt(LocalDateTime.now());
+        client.setUser(user);
 
         Client savedClient = clientRepository.save(client);
 
-        return new ClientResponse(
-            savedClient.getId(),
-            savedClient.getName(),
-            savedClient.getEmail(),
-            savedClient.getPhoneNumber(),
-            savedClient.getCreatedAt()
-        );
+        return ClientResponse.fromEntity(savedClient);
     }
 
     public ClientResponse updateClient(Long id, ClientRequest request) {
@@ -80,7 +80,8 @@ public class ClientService {
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setPhoneNumber(request.getPhoneNumber());
-
+        client.setCreatedAt(LocalDateTime.now());
+       
         Client updatedClient = clientRepository.save(client);
 
         return ClientResponse.fromEntity(updatedClient);

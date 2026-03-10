@@ -1,8 +1,9 @@
-package com.natan.clientmanagementapi.api.dto;
+package com.natan.clientmanagementapi.api.dto.user;
 
 import java.time.LocalDateTime;
-import com.natan.clientmanagementapi.api.model.Role;
-import com.natan.clientmanagementapi.api.entity.User;
+
+import com.natan.clientmanagementapi.api.domain.enums.Role;
+import com.natan.clientmanagementapi.api.domain.model.User;
 
 public class UserResponse {
 

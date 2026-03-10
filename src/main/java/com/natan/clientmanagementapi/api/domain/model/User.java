@@ -1,6 +1,8 @@
-package com.natan.clientmanagementapi.api.entity;
+package com.natan.clientmanagementapi.api.domain.model;
 
 import java.time.LocalDateTime;
+
+import com.natan.clientmanagementapi.api.domain.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import com.natan.clientmanagementapi.api.model.Role;
-
 
 @Entity
 @Table(name = "users")
@@ -30,13 +30,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+   @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public User() {
     }
 
     // getters and setters
+
     public Long getId() {
         return id;
     }

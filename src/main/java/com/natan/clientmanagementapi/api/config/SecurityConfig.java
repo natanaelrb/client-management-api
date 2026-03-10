@@ -1,5 +1,4 @@
-package com.natan.clientmanagementapi.api.security;
-
+package com.natan.clientmanagementapi.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.natan.clientmanagementapi.api.security.CustomUserDetailsService;
+import com.natan.clientmanagementapi.api.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -52,4 +53,5 @@ public class SecurityConfig {
     ) throws Exception {
         return configuration.getAuthenticationManager();
     }
+    
 }

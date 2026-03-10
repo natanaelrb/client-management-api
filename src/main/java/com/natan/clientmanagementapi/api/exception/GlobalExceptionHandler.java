@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.validation.ConstraintViolationException;
-
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,7 +26,7 @@ public class GlobalExceptionHandler {
                         "status", 409,
                         "error", ex.getMessage()
                 ));
-    }
+        }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleNotFound(ResourceNotFoundException ex) {
@@ -39,7 +37,7 @@ public class GlobalExceptionHandler {
                         "status", 404,
                         "error", ex.getMessage()
                 ));
-    }
+        }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex) {
@@ -61,7 +59,7 @@ public class GlobalExceptionHandler {
                         "error", "Validation failed",
                         "fields", fieldErrors
                 ));
-    }
+        }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex) {
@@ -72,5 +70,5 @@ public class GlobalExceptionHandler {
                         "status", 400,
                         "error", ex.getMessage()
                 ));
-    }
+        }
 }
