@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.natan.clientmanagementapi.api.domain.enums.Role;
 import com.natan.clientmanagementapi.api.domain.model.User;
-import com.natan.clientmanagementapi.api.dto.auth.LoginRequest;
-import com.natan.clientmanagementapi.api.dto.auth.LoginResponse;
+import com.natan.clientmanagementapi.api.dto.login.LoginRequest;
+import com.natan.clientmanagementapi.api.dto.login.LoginResponse;
 import com.natan.clientmanagementapi.api.repository.UserRepository;
 import com.natan.clientmanagementapi.api.security.CustomUserPrincipal;
 import com.natan.clientmanagementapi.api.security.JwtService;
@@ -67,7 +67,9 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
         user.setCreatedAt(LocalDateTime.now());
+        user.setRole(Role.USER);
 
-    userRepository.save(user);
+
+        userRepository.save(user);
         }
 }

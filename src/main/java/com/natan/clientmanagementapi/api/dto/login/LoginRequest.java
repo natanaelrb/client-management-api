@@ -1,12 +1,15 @@
-package com.natan.clientmanagementapi.api.dto.auth;
+package com.natan.clientmanagementapi.api.dto.login;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
     
+    @Schema(description = "Nome do usuário", example = "admin")
     @NotBlank
     private String username;
 
+    @Schema(description = "Senha do usuário", example = "123456")
     @NotBlank
     private String password;
 
