@@ -1,6 +1,6 @@
 # 📈  Client Management API - Spring Boot REST API
 
-API RESTful desenvolvida com Spring Boot para gerenciamento de clientes e usuários. A aplicação permite realizar operações completas de cadastro, consulta, atualização e remoção de clientes, seguindo boas práticas de arquitetura em camadas com autenticação baseada em JWT (JSON Web Token), controle de acesso e permissões por perfis de usuário (ADMIN e USER) e controle de acesso utilizando Spring Security.
+API RESTful desenvolvida com Spring Boot para gerenciamento de clientes e usuários. A aplicação permite realizar operações completas de cadastro, consulta, atualização e remoção de clientes, seguindo boas práticas de arquitetura em camadas com autenticação baseada em JWT (JSON Web Token), controle de acesso, permissões por perfis de usuário (ADMIN e USER) e controle de acesso utilizando Spring Security.
 O projeto segue boas práticas de arquitetura em camadas, separando responsabilidades entre controller, service, repository, domain, exception, DTOs e security, proporcionando uma aplicação escalável e organizada.
 
 ## 🛠️ Tecnologias e Ferramentas
@@ -20,7 +20,6 @@ O projeto segue boas práticas de arquitetura em camadas, separando responsabili
 ### Persistência & Dados
 * **MySQL** (Banco de Dados Relacional)
 * **Spring Data JPA** & **Hibernate** (ORM)
-* **Flyway** (Gerenciamento de Migrations de Banco)
 
 ### Produtividade & Qualidade
 * **Lombok** (Redução de Boilerplate)
@@ -95,9 +94,32 @@ mvn spring-boot:run
 http://localhost:8080
 ````
 
+## 📚 Documentação da API
+
+A documentação interativa da API está disponível através do Swagger UI.
+
+Após iniciar a aplicação, acesse:
+
+http://localhost:8080/swagger-ui/index.html
+
+No Swagger é possível:
+
+- visualizar todos os endpoints
+- testar requisições diretamente no navegador
+- autenticar usando JWT
+
+### 🔐 Autenticação no Swagger
+
+1. Faça login em `/auth/login`
+2. Copie o `token` retornado
+3. Clique no botão **Authorize** no Swagger
+4. Insira: Bearer SEU_TOKEN
+
 ## 🚀 Endpoints da API
 
 Abaixo estão os principais recursos da aplicação. 
+> ⚠️ Endpoints protegidos requerem autenticação via JWT.
+> 
 > **Nota:** Os endpoints de Usuários e Clientes requerem o header `Authorization: Bearer <seu_token>`.
 
 
@@ -241,8 +263,9 @@ Este é um projeto de portfólio em constante evolução. Os próximos marcos de
 - [ ] **Testes com Mockito:** Aumentar a cobertura de testes unitários.
 - [ ] **Dockerização:** Facilitar o deploy com Docker e Docker Compose.
 - [ ] **Cloud Deploy:** Hospedar a API em um ambiente de nuvem (AWS/Azure).
-- [ ] **Documentação:** Adicionar documentação com Swagger
-
+- [ ] Flyway (Gerenciamento de Migrations de Banco)
+- [x] Documentação completa da API com Swagger (OpenAPI 3)
+      
 ## 👨🏻‍💻 Autor
 
 Desenvolvido por **Natanael Ribeiro**. 
