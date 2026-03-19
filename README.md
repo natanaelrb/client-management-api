@@ -69,13 +69,13 @@ Siga os passos abaixo para rodar a aplicação localmente:
 
 ### 1. Clonar o repositório
 ```bash
-Bash
+</> Bash
 git clone https://github.com/seu-usuario/client-management-api.git
 ````
 
 ### 2. Acessar a branch de desenvolvimento
 ````bash
-Bash
+</> Bash
 cd client-management-api
 git checkout development
 ````
@@ -86,7 +86,7 @@ Ajuste as propriedades em src/main/resources/application.properties com suas cre
 ````
 ## 4. Executar
 ````bash
-Bash
+</> Bash
 mvn spring-boot:run
 ````
 ## A API estará disponível em:
@@ -137,6 +137,7 @@ Abaixo estão os principais recursos da aplicação.
 ````
 ````json
 JSON
+
 {
   "token": "JWT_TOKEN"
 }
@@ -153,6 +154,7 @@ Retorna um JWT_TOKEN para ser usado nas demais requisições.
 ## Request Body:
 ````json
 JSON
+
 {
   "username": "joao",
   "password": "123456",
