@@ -9,7 +9,7 @@ public class LoginRequest {
     @NotBlank
     private String username;
 
-    @Schema(description = "Senha do usuário", example = "123456")
+    @Schema(description = "Senha do usuário", example = "admin123")
     @NotBlank
     private String password;
 
