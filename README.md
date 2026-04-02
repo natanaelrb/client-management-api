@@ -262,11 +262,12 @@ Este é um projeto de portfólio em constante evolução. Os próximos marcos de
 
 - [ ] **Refresh Token:** Implementar renovação de sessão sem necessidade de novo login.
 - [ ] **Paginação de Resultados:** Melhorar a performance em listagens grandes.
-- [ ] **Testes com Mockito:** Aumentar a cobertura de testes unitários.
+- [x] **Testes com Mockito:** Aumentar a cobertura de testes unitários.
 - [ ] **Dockerização:** Facilitar o deploy com Docker e Docker Compose.
 - [ ] **Cloud Deploy:** Hospedar a API em um ambiente de nuvem (AWS/Azure).
-- [ ] Flyway (Gerenciamento de Migrations de Banco)
+- [ ] **Flyway** (Gerenciamento de Migrations de Banco)
 - [x] Documentação completa da API com Swagger (OpenAPI 3)
+- [x] Criação de Administrador Automático 
       
 ## 👨🏻‍💻 Autor
 
