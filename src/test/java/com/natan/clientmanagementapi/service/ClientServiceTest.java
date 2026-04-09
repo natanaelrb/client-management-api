@@ -1,5 +1,6 @@
 package com.natan.clientmanagementapi.service;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +16,8 @@ import com.natan.clientmanagementapi.api.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 class ClientServiceTest {
 
@@ -39,13 +42,17 @@ class ClientServiceTest {
         client.setId(1L);
         client.setName("Empresa Teste");
 
-        when(clientRepository.findAll()).thenReturn(List.of(client));
+        Pageable pageable = PageRequest.of(0, 10);
 
-        var result = clientService.findAll();
+        var page = new org.springframework.data.domain.PageImpl<>(List.of(client));
 
-        assertEquals(1, result.size());
+        when(clientRepository.findAll(pageable)).thenReturn(page);
 
-        verify(clientRepository).findAll();
+        var result = clientService.getAllClients(pageable);
+
+        assertEquals(1, result.getContent().size());
+
+        verify(clientRepository).findAll(pageable);
     }
 
     @Test

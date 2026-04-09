@@ -1,8 +1,10 @@
 package com.natan.clientmanagementapi.api.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.natan.clientmanagementapi.api.domain.model.Client;
@@ -12,6 +14,7 @@ import com.natan.clientmanagementapi.api.dto.client.ClientResponse;
 import com.natan.clientmanagementapi.api.exception.DuplicateResourceException;
 import com.natan.clientmanagementapi.api.exception.ResourceNotFoundException;
 import com.natan.clientmanagementapi.api.repository.ClientRepository;
+import com.natan.clientmanagementapi.specification.ClientSpecification;
 
 @Service
 public class ClientService {
@@ -24,11 +27,24 @@ public class ClientService {
         this.userService = userService;
     }
 
-    public List<ClientResponse> findAll() {
-        return clientRepository.findAll()
-                .stream()
-                .map(ClientResponse::fromEntity)
-                .toList();
+    public Page<ClientResponse> getAllClients(Pageable pageable) {
+    return clientRepository.findAll(pageable)
+            .map(ClientResponse::fromEntity);
+    }
+
+    public Page<ClientResponse> searchClients(
+        String name,
+        String email,
+        Pageable pageable
+    ) {
+
+    Specification<Client> spec =
+            Specification.where(ClientSpecification.nameContains(name))
+                         .and(ClientSpecification.emailContains(email));
+
+    Page<Client> clients = clientRepository.findAll(spec, pageable);
+
+    return clients.map(ClientResponse::fromEntity);
     }
 
     public ClientResponse findById(Long id) {
