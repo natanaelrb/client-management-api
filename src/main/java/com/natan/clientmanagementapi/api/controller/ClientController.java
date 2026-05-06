@@ -42,6 +42,15 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    @Operation(
+        summary = "Listar clientes",
+        description = "Retorna uma lista paginada de clientes com suporte a filtros por nome e email"
+    )
+    @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Lista de clientes retornada com sucesso"),
+    @ApiResponse(responseCode = "403", description = "Acesso negado")
+    })
+
     @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
