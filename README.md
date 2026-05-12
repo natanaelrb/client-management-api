@@ -1,98 +1,133 @@
-# 📈  Client Management API - Spring Boot REST API
+# 👥  Client Management API - Spring Boot REST API
 
-API RESTful desenvolvida com Spring Boot para gerenciamento de clientes e usuários. A aplicação permite realizar operações completas de cadastro, consulta, atualização e remoção de clientes, seguindo boas práticas de arquitetura em camadas com autenticação baseada em JWT (JSON Web Token), controle de acesso, permissões por perfis de usuário (ADMIN e USER) e controle de acesso utilizando Spring Security.
-O projeto segue boas práticas de arquitetura em camadas, separando responsabilidades entre controller, service, repository, domain, exception, DTOs e security, proporcionando uma aplicação escalável e organizada.
+API RESTful desenvolvida com Spring Boot para gerenciamento de clientes e usuários.
+A aplicação permite realizar operações completas de cadastro, consulta, atualização e remoção de clientes, seguindo boas práticas de arquitetura em camadas.
 
-## 🛠️ Tecnologias e Ferramentas
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
+O projeto conta com autenticação baseada em JWT (JSON Web Token), controle de permissões por perfis de usuário (ADMIN e USER) utilizando Spring Security, além de uma estrutura organizada e escalável.
 
 ### Core & Frameworks
-* **Java 17+** (Linguagem Principal)
-* **Spring Boot 3.x** (Ecossistema de Microserviços)
-* **Spring Security** & **JWT** (Autenticação e Autorização)
-* **Jakarta Validation** (Validação de dados)
+* **Java 17+** (Linguagem Principal da aplicação)
+* **Spring Boot 3.x** (Framework para desenvolvimento da API REST)
+* **Spring Security** & **JWT** (Autenticação e controle de acesso)
+* **Jakarta Validation** (Validação de dados de entrada)
 
 ### Persistência & Dados
 * **MySQL** (Banco de Dados Relacional)
-* **Spring Data JPA** & **Hibernate** (ORM)
+* **Spring Data JPA** & **Hibernate** (Persistência e mapeamento objeto-relacional)
+* **Pagination with Pageable** (Paginação de resultados)
+* **Dynamic Queries with Specification Pattern** (Filtros dinâmicos e consultas flexíveis)
+
+### Arquitetura & API Design
+* **RESTful API** (Padronização dos endpoints HTTP)
+* **DTO Pattern** (Transferência segura de dados entre camadas)
+* **Layered Architecture** (Separação de responsabilidades da aplicação)
+* **RBAC - Role-Based Access Control** (Controle de permissões por tipo de usuário)
 
 ### Produtividade & Qualidade
-* **Lombok** (Redução de Boilerplate)
-* **MapStruct** (Mapeamento de DTOs)
-* **Swagger (OpenAPI 3)** (Documentação da API)
-* **JUnit 5** & **Mockito** (Testes Unitários)
+* **Lombok** (Redução de código boilerplate)
+* **MapStruct** (Mapeamento automático entre DTOs e entidades)
+* **Swagger / OpenAPI 3** (Documentação interativa da API)
+* **JUnit 5** & **Mockito** (Testes Unitários e mocks)
 
 ### Infraestrutura & Ferramentas
-* **Maven** (Gerenciador de Dependências)
-* **Docker** (Containerização)
-* **Git & GitHub** (Versionamento)
-* **Postman** (Testes de Endpoints)
+* **Maven** (Gerenciador de Dependências e build)
+* **Docker** (Containerização da aplicação)
+* **Git & GitHub** (Versionamento de código)
+* **Postman** (Testes e validação de endpoints)
 
-## 🎯 Funcionalidades
+---
 
-### 👤 Autenticação e Segurança
+## ⚙️ Funcionalidades
+
+### 🔐 Autenticação e Segurança
 - **Registro de usuários:** Cadastro de novos usuários no sistema.
-- **Login com JWT:** Geração de tokens para autenticação segura.
-- **Autorização por Roles:** Controle de acesso baseado em perfis (**ADMIN** e **USER**).
-- **Spring Security:** Proteção robusta de todos os endpoints.
-- **Validação:** Verificação de dados em requisições autenticadas.
+- **Autenticação com JWT:** Geração de tokens para acesso seguro aos endpoints.
+- **Controle de acesso por Roles:** Permissões baseadas em perfis (**ADMIN** e **USER**).
+- **Spring Security:** Proteção e autorização dos endpoints da aplicação.
+- **Validação de dados:** Verificação automática de requisições utilizando Jakarta Validation.
 
-### 📋 Gerenciamento de Clientes
-- **Cadastro:** Registro de novos clientes com validação de dados.
-- **Listagem:** Consulta de todos os clientes cadastrados.
-- **Busca por ID:** Filtro específico para encontrar um cliente.
-- **Atualização:** Edição de informações existentes.
-- **Remoção:** Exclusão de clientes do banco de dados.
+### 👤 Gerenciamento de Usuários
 
-### 🔐 Controle de Permissões
-- **ADMIN:** Possui acesso total (Criar, Atualizar, Excluir e Visualizar).
-- **USER:** Acesso limitado apenas à visualização e consulta de clientes.
+- **Cadastro de usuários:** Registro de novos usuários no sistema.
+- **Autenticação com JWT:** Login e geração de token para acesso seguro.
+- **Controle de permissões:** Diferenciação de acesso entre usuários ADMIN e USER.
+- **Criptografia de senhas:** Armazenamento seguro utilizando BCrypt.
+  
+### 👥 Gerenciamento de Clientes
+- **Cadastro de clientes:** Criação de novos registros com validações.
+- **Listagem paginada:** Consulta de clientes com suporte a paginação e ordenação.
+- **Filtros dinâmicos:** Busca de clientes por parâmetros opcionais utilizando Specification.
+- **Busca por ID:** Consulta específica de clientes cadastrados.
+- **Atualização de dados:** Edição de informações existentes.
+- **Remoção de clientes:** Exclusão de registros do banco de dados.
+  
+### 🔒 Controle de Permissões
+- **ADMIN:** Acesso total às operações da aplicação (CRUD completo).
+- **USER:** Permissão apenas para visualização e consulta de clientes.
 
-### ⚙️ Diferenciais Técnicos
-- **API REST:** Endpoints seguindo as melhores práticas e padrões HTTP.
-- **Validações:** Regras de negócio para evitar duplicidade de e-mail e telefone.
-- **Persistência:** Integração completa com banco de dados relacional.
+### 🏗️ Diferenciais Técnicos
+- **API RESTful:** Endpoints seguindo padrões HTTP e boas práticas REST.
+- **Arquitetura em Camadas:** Separação de responsabilidades entre Controller, Service e Repository.
+- **DTO Pattern:** Transferência segura de dados entre camadas da aplicação.
+- **Persistência com JPA/Hibernate:** Integração com banco de dados relacional utilizando ORM.
+- **Documentação Swagger/OpenAPI:** Interface interativa para testes e documentação da API.
 
-## ⚙️ Como executar o projeto
+---
+  
+## ▶️ Como executar o projeto
 
-Pré-requisitos
-- Java 17 ou superior
-- Maven instalado
-- MySQL rodando localmente (ou via Docker)
+### 📋 Pré-requisitos
 
-Siga os passos abaixo para rodar a aplicação localmente:
+Antes de iniciar, você precisará ter instalado:
+
+- Java 17+
+- Maven
+- MySQL
+- Git
+
+Ou utilizar Docker para subir o banco de dados (Ainda está em desenvolvimento no momento).
+
+---
+
+## 💻 Executando localmente
 
 ### 1. Clonar o repositório
+
 ```bash
-</> Bash
 git clone https://github.com/seu-usuario/client-management-api.git
 ````
 
 ### 2. Acessar a branch de desenvolvimento
 ````bash
-</> Bash
 cd client-management-api
+````
+````bash
 git checkout development
 ````
 
-## 3. Configurar o banco:
-````bash
-Ajuste as propriedades em src/main/resources/application.properties com suas credenciais do MySQL.
+### 3. Configurar o banco de dados:
+Edite o arquivo:
 ````
-## 4. Executar
+src/main/resources/application.properties
+````
+Configure suas credenciais do MySQL:
+````properties
+spring.datasource.url=jdbc:mysql://localhost:3306/client_management
+spring.datasource.username=root
+spring.datasource.password=sua_senha
+````
+
+### 4. Executar a aplicação 
 ````bash
-</> Bash
 mvn spring-boot:run
 ````
-## A API estará disponível em:
+
+### 🌐 A aplicação estará disponível em
 ````
 http://localhost:8080
 ````
+
+---
 
 ## 📚 Documentação da API
 
@@ -100,61 +135,80 @@ A documentação interativa da API está disponível através do Swagger UI.
 
 Após iniciar a aplicação, acesse:
 
+```text
 http://localhost:8080/swagger-ui/index.html
+```
+OU
+```text
+http://localhost:8080/swagger-ui/index.html
+````
+(depende da versão do SpringDoc)
 
-No Swagger é possível:
+## 🔍 Recursos disponíveis no Swagger
 
-- visualizar todos os endpoints
-- testar requisições diretamente no navegador
-- autenticar usando JWT
+- Visualização de todos os endpoints da API
+- Teste de requisições diretamente pelo navegador
+- Autenticação utilizando JWT
+- Consulta de parâmetros, respostas e códigos HTTP
 
-### 🔐 Autenticação no Swagger
+## 🔐 Autenticação no Swagger
 
-1. Faça login em `/auth/login`
-2. Copie o `token` retornado
+1. Realize login no endpoint:
+````
+ /auth/login
+````
+2. Copie o token JWT retornado
 3. Clique no botão **Authorize** no Swagger
-4. Insira: Bearer SEU_TOKEN
+4. Insira o token no formato:
+````
+Bearer SEU_TOKEN
+````
 
-## 🚀 Endpoints da API
+---
 
-Abaixo estão os principais recursos da aplicação. 
+## 📍 Endpoints da API
+
+Abaixo estão os principais recursos da aplicação.
+
 > ⚠️ Endpoints protegidos requerem autenticação via JWT.
-> 
-> **Nota:** Os endpoints de Usuários e Clientes requerem o header `Authorization: Bearer <seu_token>`.
+>
+> **Authorization:** `Bearer <seu_token>`
 
+---
 
 <details>
-  <summary>🔐 Autenticação (Clique para expandir)</summary>
+  <summary>🔑 Autenticação</summary>
 
 ### Login
+
 `POST /auth/login`
-## Request Body
+
+#### Request Body
+
 ```json
-{ 
+{
   "username": "admin",
   "password": "123456"
 }
 ````
+#### Response
 ````json
-JSON
-
 {
   "token": "JWT_TOKEN"
 }
-Retorna um JWT_TOKEN para ser usado nas demais requisições.
 ````
+Retorna um token JWT para autenticação nas demais requisições.
 </details>
 
-<details>
+<details> 
   <summary>👤 Usuários</summary>
+  
+### Criar Usuário
 
-## Criar Usuário
 `POST /users`
 
-## Request Body:
+#### Request Body
 ````json
-JSON
-
 {
   "username": "joao",
   "password": "123456",
@@ -162,122 +216,164 @@ JSON
 }
 ````
 
-
 | Método | Endpoint | Descrição |
-| :--- | :--- | :--- |
-| POST | `/users` | Cria um novo usuário (Admin/User) |
-| GET | `/users` | Lista todos os usuários do sistema |
-| PUT | `/users/{id}` | Atualizar dados de um usuário |
-| DELETE | `/users/{id}` | Remover um usuário |
-
+|---|---|---|
+| 🟢 POST | `/users` | Cria um novo usuário |
+| 🔵 GET | `/users` | Lista todos os usuários |
+| 🟠 PUT | `/users/{id}` | Atualiza um usuário |
+| 🔴 DELETE | `/users/{id}` | Remove um usuário |
 </details>
 
-<details>
+<details> 
   <summary>👥 Clientes</summary>
+  
+### Criar Cliente
 
-  ## Criar Cliente
 `POST /clients`
-```json
-JSON
 
+#### Request Body
+````json
 {
   "name": "Maria Silva",
   "email": "maria@email.com",
   "phoneNumber": "11999999999"
 }
-```
+````
 
 | Método | Endpoint | Descrição |
-| :--- | :--- | :--- |
-| POST | `/clients` | Cadastra um novo cliente |
-| GET | `/clients` | Lista todos os clientes |
-| GET | `/clients/{id}` | Busca cliente por ID |
-| DELETE | `/clients/{id}` | Remover um cliente |
+|---|---|---|
+| 🟢 POST | `/clients` | Cadastra um novo cliente |
+| 🔵 GET | `/clients` | Lista clientes com paginação e filtros |
+| 🔵 GET | `/clients/{id}` | Busca cliente por ID |
+| 🟠 PUT | `/clients/{id}` | Atualiza dados de um cliente |
+| 🔴 DELETE | `/clients/{id}` | Remove um cliente |
 
+## 🔍 Exemplo de paginação e filtros
+````http
+GET /clients?page=0&size=5&name=maria
+````
 </details>
 
-## 📂 Estrutura do Projeto
-  ## 🏗️ Arquitetura
+---
 
-O projeto foi construído seguindo os princípios de **Clean Code** e a **Arquitetura em Camadas**:
-- **Controller:** Gerenciamento dos endpoints e rotas REST.
-- **Service:** Onde reside toda a inteligência e regras de negócio.
-- **Repository:** Interface de comunicação direta com o banco de dados via JPA.
-- **DTOs:** Separação total entre as entidades do banco e os dados que trafegam na API.
-  
-A organização do código segue o padrão de camadas para garantir a separação de responsabilidades e facilitar a manutenção:
+## 🧩 Arquitetura do Projeto
+
+A aplicação foi desenvolvida seguindo os princípios de **Clean Code** e **Arquitetura em Camadas**, garantindo organização, separação de responsabilidades e facilidade de manutenção.
+
+### 📂 Estrutura do projeto
 
 ```text
-src/main/java/com/natan/clientmanagementapi/api
-├── 🎮 controller   # Porta de entrada (Endpoints REST)
-├── ⚙️ service      # Regras de negócio da aplicação
-├── 🏛️ domain       # Entidades do banco de dados (JPA Entities)
-├── 📦 repository   # Comunicação com o banco (Spring Data JPA)
-├── ✉️ dto          # Objetos de transferência de dados (Request/Response)
-├── 🛡️ security     # Configurações de JWT e Spring Security
-├── ⚠️ exception    # Tratamento de erros e exceções globais
-└── 🛠️ config       # Configurações gerais (Password/Swagger/OpenAPI)
-````
+src/main/java/com/natan/clientmanagementapi
+│
+├── 📂 api
+│   ├── 📂 controller      # Endpoints REST
+│   ├── 📂 dto             # Request/Response DTOs
+│   ├── 📂 service         # Regras de negócio
+│   └── 📂 specification   # Filtros dinâmicos (JPA Specification)
+│
+├── 📂 domain
+│   └── 📂 entity          # Entidades JPA
+│
+├── 📂 repository          # Interfaces JPA Repository
+│
+├── 📂 security
+│   ├── 📂 jwt             # Geração e validação de tokens JWT
+│   └── 📂 config          # Configurações do Spring Security
+│
+├── 📂 exception           # Tratamento global de exceções
+│
+└── 📂 config              # Configurações gerais da aplicação
+```
+----
+
 ## 🛡️ Segurança e Proteção
 
-A API implementa diversas camadas de segurança para garantir a integridade dos dados:
+A API implementa múltiplas camadas de segurança para garantir autenticação, autorização e integridade dos dados:
 
-* **Autenticação com JWT:** Tokens com tempo de expiração para validar sessões.
-* **Criptografia BCrypt:** Senhas de usuários nunca são salvas em texto puro no banco.
-* **RBAC (Role Based Access Control):** Controle de acesso baseado em perfis (`ADMIN` e `USER`).
-* **Tratamento de Erro 403:** Respostas customizadas para tentativas de acesso não autorizado.
-* **Validação de Unicidade:** Regras de negócio para evitar `username` ou e-mails duplicados.
+- **JWT (JSON Web Token):** Autenticação stateless baseada em tokens com expiração configurável.
+- **Spring Security:** Proteção dos endpoints e gerenciamento das regras de acesso.
+- **BCrypt Password Encoder:** Criptografia segura de senhas antes da persistência no banco de dados.
+- **RBAC (Role-Based Access Control):** Controle de permissões baseado em perfis (`ADMIN` e `USER`).
+- **Autorização por Roles:** Restrição de acesso a endpoints específicos conforme o perfil do usuário.
+- **Validação de Dados:** Uso de Jakarta Validation para validação de campos nas requisições.
+- **Tratamento Global de Exceções:** Respostas padronizadas para erros de autenticação, autorização e validação.
+- **Validação de Unicidade:** Regras de negócio para impedir cadastro de usuários, e-mails ou telefones duplicados.
+
+--- 
 
 ## 📝 Notas de Desenvolvimento
 
-Para fins de demonstração e facilitação de testes, o projeto atual conta com as seguintes características:
-
-* **🗄️ Banco de Dados:** Atualmente integrado com **MySQL**, utilizando o **Flyway** para garantir que as tabelas sejam criadas automaticamente ao rodar o projeto.
-* **🛡️ Segurança:** A autenticação é realizada via **JWT (JSON Web Token)**, protegendo os endpoints de escrita (`POST`, `PUT`, `DELETE`) e exigindo o token no Header das requisições.
-* **🔑 Dados Iniciais:** O sistema já conta com um usuário `ADMIN` padrão (configurado via `import.sql` ou seeder) para permitir o primeiro login e teste das funcionalidades.
-* **✅ Validações:** Implementadas com **Jakarta Validation**, garantindo que não existam e-mails duplicados ou campos vazios no banco.
-
----
-
-## 🤝 Próximos Passos & Contribuição
-
-Este é um projeto de portfólio em constante evolução. Os próximos marcos de desenvolvimento incluem:
-
-- [ ] **Testes de Integração:** Implementar testes completos de ponta a ponta com **Testcontainers**.
-- [ ] **Containerização:** Criar um arquivo `docker-compose.yml` para subir a API e o Banco com um único comando.
-- [ ] **Monitoramento:** Integrar o **Spring Boot Actuator** e o **Prometheus** para métricas em tempo real.
-- [ ] **Front-end:** Desenvolver um Dashboard em **Angular** ou **React** para consumir esta API.
-- [ ] **Deploy:** Configurar uma esteira de CI/CD para deploy automático na **AWS** ou **Azure**.
+- O projeto utiliza **MySQL** como banco de dados relacional.
+- As tabelas são gerenciadas automaticamente pelo **Hibernate/JPA**.
+- A autenticação da API é realizada com **JWT (JSON Web Token)**.
+- Endpoints protegidos exigem autenticação via header `Authorization`.
+- O sistema possui um usuário `ADMIN` inicial para testes da aplicação.
+- As validações da API são implementadas com **Jakarta Validation**.
 
 ---
 
-### 👨‍💻 Como contribuir
-1. Faça um **Fork** do projeto.
-2. Crie uma **Branch** para sua feature (`git checkout -b feature/NovaFeature`).
-3. Dê um **Commit** nas suas alterações (`git commit -m 'Add: Nova Feature'`).
-4. Faça um **Push** para a Branch (`git push origin feature/NovaFeature`).
-5. Abra um **Pull Request**.
+## 📌 Próximos Passos
 
-## 📈 Melhorias Futuras
+Este projeto continua em evolução e novas funcionalidades serão adicionadas futuramente:
 
-- [ ] **Refresh Token:** Implementar renovação de sessão sem necessidade de novo login.
-- [ ] **Paginação de Resultados:** Melhorar a performance em listagens grandes.
-- [x] **Testes com Junit e Mockito:** Aumentar a cobertura de testes unitários.
-- [ ] **Dockerização:** Facilitar o deploy com Docker e Docker Compose.
-- [ ] **Cloud Deploy:** Hospedar a API em um ambiente de nuvem (AWS/Azure).
-- [ ] Flyway (Gerenciamento de Migrations de Banco)
+- [x] Paginação e filtros dinâmicos com JPA Specification
 - [x] Documentação completa da API com Swagger (OpenAPI 3)
-- [x] Criação de Administrador Automático 
-      
+- [x] Testes unitários com JUnit e Mockito
+- [x] Criação automática de usuário ADMIN
+
+### 🔜 Melhorias planejadas
+
+- [ ] Implementar Refresh Token
+- [ ] Adicionar testes de integração com Testcontainers
+- [ ] Finalizar containerização com Docker e Docker Compose
+- [ ] Integrar Spring Boot Actuator e Prometheus
+- [ ] Implementar Flyway para versionamento de banco
+- [ ] Desenvolver Front-end com Angular ou React
+- [ ] Configurar CI/CD para deploy automático
+- [ ] Realizar deploy em nuvem (AWS ou Azure)
+
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas.
+
+1. Faça um **Fork** do projeto
+2. Crie uma branch para sua feature
+
+```bash
+git checkout -b feature/NovaFeature
+````  
+3. Commit suas alterações
+````bash
+git commit -m "feat: adiciona nova feature"
+````
+4. Faça push para a branch
+````bash
+git push origin feature/NovaFeature
+````
+5. Abra um Pull Request
+
+---
+
 ## 👨🏻‍💻 Autor
 
-Desenvolvido por **Natanael Ribeiro**. 
-Projeto criado para estudo e prática intensiva de **Spring Boot, Spring Security e APIs REST**.
+Desenvolvido por **Natanael Ribeiro**.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/natanaelribeirodev)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/natanaelrb)
+Projeto criado para estudo e prática de:
+
+- Spring Boot
+- Spring Security
+- APIs REST
+- Arquitetura Backend Java
+  
+## 🔗 Contato
+**GitHub:** github.com/natanaelrb
+**LinkedIn:** linkedin.com/in/natanaelribeirodev
 
 ---
+
 ## 📄 Licença
+
 Projeto desenvolvido para fins educacionais e de estudo.
  
